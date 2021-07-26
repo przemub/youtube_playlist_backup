@@ -1,0 +1,14 @@
+#!/bin/bash
+set -eux
+
+if [ -z "${PLAYLIST_LINK:-}" ]
+then
+	echo "Set \$PLAYLIST_LINK to the link to the YouTube playlist."
+	exit 1
+fi
+
+FORMAT=${FORMAT:-bestvideo+bestaudio}
+OUTPUT_TEMPLATE=${OUTPUT_TEMPLATE:-%(playlist_id)s - %(uploader)s - %(title)s.%(ext)s}
+
+youtube-dl -f $FORMAT --cookies /etc/cookies.txt --download-archive /etc/archive.txt --yes-playlist --no-overwrites --embed-subs --write-sub --add-metadata --playlist-reverse --output "/downloads/$OUTPUT_TEMPLATE" ${EXTRA_OPTIONS:-} "$PLAYLIST_LINK"
+
