@@ -8,7 +8,12 @@ then
 fi
 
 FORMAT=${FORMAT:-bestvideo+bestaudio}
-OUTPUT_TEMPLATE=${OUTPUT_TEMPLATE:-%(playlist_id)s - %(uploader)s - %(title)s.%(ext)s}
+OUTPUT_TEMPLATE=${OUTPUT_TEMPLATE:-%(playlist_index)s - %(uploader)s - %(title)s.%(ext)s}
+SLEEP_TIME=${SLEEP_TIME:-24h}
 
-youtube-dl -f $FORMAT --cookies /etc/cookies.txt --download-archive /etc/archive.txt --yes-playlist --no-overwrites --embed-subs --write-sub --add-metadata --playlist-reverse --output "/downloads/$OUTPUT_TEMPLATE" ${EXTRA_OPTIONS:-} "$PLAYLIST_LINK"
+while true
+do
+	youtube-dl -f $FORMAT --cookies /etc/cookies.txt --download-archive /etc/archive.txt --yes-playlist --no-overwrites --embed-subs --write-sub --add-metadata --playlist-reverse --output "/downloads/$OUTPUT_TEMPLATE" ${EXTRA_OPTIONS:-} "$PLAYLIST_LINK"
+	sleep "$SLEEP_TIME"
+done
 
