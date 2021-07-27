@@ -14,7 +14,7 @@ SLEEP_TIME=${SLEEP_TIME:-24h}
 
 while true
 do
-	/usr/local/bin/yt-dlp -f $FORMAT --concurrent-fragments 8 --ignore-errors --compat-options playlist-index --cookies /etc/cookies.txt --download-archive /etc/archive.txt --yes-playlist --no-overwrites --embed-subs --write-sub --add-metadata --playlist-reverse --output "/downloads/$OUTPUT_TEMPLATE" ${EXTRA_OPTIONS:-} "$PLAYLIST_LINK"
+	/usr/local/bin/yt-dlp -f $FORMAT --concurrent-fragments 8 --ignore-errors --compat-options playlist-index --cookies /etc/cookies.txt --download-archive /etc/archive.txt --yes-playlist --no-overwrites --embed-subs --write-sub --add-metadata --write-info-json --write-description --write-annotation --write-thumbnail --playlist-reverse --output "/downloads/$OUTPUT_TEMPLATE" ${EXTRA_OPTIONS:-} "$PLAYLIST_LINK"
 	sleep "$SLEEP_TIME"
 done
 
