@@ -1,6 +1,6 @@
 #!/bin/bash
 set -eu
-[ -n "$DEBUG" ] && set -x
+[ -n "${DEBUG:-}" ] && set -x
 
 if [ -z "${PLAYLIST_LINK:-}" ]
 then
@@ -9,12 +9,12 @@ then
 fi
 
 FORMAT=${FORMAT:-bestvideo+bestaudio}
-OUTPUT_TEMPLATE=${OUTPUT_TEMPLATE:-%(playlist_index)s - %(uploader)s - %(title)s.%(ext)s}
+OUTPUT_TEMPLATE=${OUTPUT_TEMPLATE:-%(playlist_autonumber)05d - %(uploader)s - %(title)s.%(ext)s}
 SLEEP_TIME=${SLEEP_TIME:-24h}
 
 while true
 do
-	/usr/local/bin/yt-dlp -f $FORMAT --concurrent-fragments 8 --ignore-errors --compat-options playlist-index --cookies /etc/cookies.txt --download-archive /etc/archive.txt --yes-playlist --no-overwrites --embed-subs --write-sub --add-metadata --write-info-json --write-description --write-annotation --write-thumbnail --playlist-reverse --output "/downloads/$OUTPUT_TEMPLATE" ${EXTRA_OPTIONS:-} "$PLAYLIST_LINK"
+	/usr/local/bin/yt-dlp -f $FORMAT --merge-output-format mkv --concurrent-fragments 8 --ignore-errors --cookies /etc/cookies.txt --download-archive /etc/archive.txt --yes-playlist --no-overwrites --write-subs --embed-subs --embed-metadata --embed-thumbnail --write-info-json --write-description --write-annotation --write-thumbnail --playlist-reverse --output "/downloads/$OUTPUT_TEMPLATE" ${EXTRA_OPTIONS:-} "$PLAYLIST_LINK"
 	sleep "$SLEEP_TIME"
 done
 
