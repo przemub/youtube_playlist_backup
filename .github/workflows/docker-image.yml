@@ -38,7 +38,7 @@ jobs:
         tags: przemub/youtube_playlist_backup:latest #,przemub/youtube_playlist_backup:${{ steps.short_id.outputs.sha_short }}
 
     - name: Create last update file
-      run: date +%s > last-update.txt
+      run: date > last-update.txt
 
     - name: Commit last-update.txt
       run: |
