@@ -3,6 +3,7 @@ name: Docker Image CI
 on:
   push:
     branches: ["master"]
+    ignore-paths: ["last-update.txt"]
   schedule:
     - cron: "37 21 * * 1"
 
